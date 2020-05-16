@@ -1,6 +1,8 @@
 package com.crp.mumbaiinsider
 
 import android.app.Application
+import com.crp.mumbaiinsider.di.networkModule
+import com.crp.mumbaiinsider.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -11,7 +13,7 @@ class InsiderApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@InsiderApp)
-            modules(listOf())
+            modules(listOf(networkModule, viewModelModule))
         }
     }
 }
