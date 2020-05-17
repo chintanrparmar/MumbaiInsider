@@ -1,12 +1,16 @@
 package com.crp.mumbaiinsider.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.crp.mumbaiinsider.databinding.ActivityMainBinding
 import com.crp.mumbaiinsider.model.Banner
+import com.crp.mumbaiinsider.model.Featured
 import com.crp.mumbaiinsider.network.State
 import com.crp.mumbaiinsider.viewmodel.MainViewModel
 import org.koin.android.ext.android.inject
@@ -22,6 +26,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainBinding.root)
 
         getData()
+        onClickEvent()
+    }
+
+    private fun onClickEvent() {
+        mainBinding.viewAllFeatured.setOnClickListener {
+            goToList("")
+        }
+        mainBinding.comedyCp.setOnClickListener {
+            goToList("Comedy")
+        }
+        mainBinding.workshopCp.setOnClickListener {
+            goToList("Workshops")
+        }
+        mainBinding.talksCp.setOnClickListener {
+            goToList("Talks")
+        }
+        mainBinding.healthCp.setOnClickListener {
+            goToList("Health and Fitness")
+        }
     }
 
     private fun getData() {
@@ -32,13 +55,9 @@ class MainActivity : AppCompatActivity() {
                     mainBinding.shimmerFL.startShimmer()
                 }
                 is State.Success -> {
-                    Log.e("Data", state.data.popular.toString())
-
-                    mainBinding.shimmerFL.stopShimmer()
-                    mainBinding.shimmerFL.visibility = GONE
-                    state.data.banners?.let {
-                        setBanner(it)
-                    }
+                    stopLoading()
+                    state.data.banners?.let { setBanner(it) }
+                    state.data.featured?.let { setFeaturedEvents(it) }
 
                 }
                 is State.Error -> {
@@ -48,7 +67,39 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun stopLoading() {
+        mainBinding.shimmerFL.stopShimmer()
+        mainBinding.shimmerFL.visibility = GONE
+        mainBinding.dataLayout.visibility = VISIBLE
+    }
+
     private fun setBanner(list: List<Banner>) {
-        mainBinding.viewPager2.adapter = BannerAdapter(list)
+
+        var distinctList = list.distinctBy { it.map_link }
+        if (distinctList.size > 5) {
+            distinctList = distinctList.take(5)
+        }
+
+
+        mainBinding.viewPager2.apply {
+            this.adapter = BannerAdapter(distinctList) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+            }
+            mainBinding.indicatorVP.setViewPager(this)
+        }
+    }
+
+    private fun setFeaturedEvents(list: List<Featured>) {
+        mainBinding.featuredRV.adapter = FeaturedEventAdapter(list.take(6)) { openDetailPage(it) }
+    }
+
+    private fun openDetailPage(featured: Featured) {
+
+    }
+
+    private fun goToList(string: String) {
+        val intent = Intent(this@MainActivity, EventListActivity::class.java)
+        intent.putExtra("filter", string)
+        startActivity(intent)
     }
 }

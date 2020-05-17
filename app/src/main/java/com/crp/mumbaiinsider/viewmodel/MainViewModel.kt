@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.crp.mumbaiinsider.model.Featured
 import com.crp.mumbaiinsider.model.MainResponse
 import com.crp.mumbaiinsider.network.InsiderAPI
 import com.crp.mumbaiinsider.network.State
@@ -26,7 +27,7 @@ class MainViewModel : ViewModel(), KoinComponent {
             withContext(Main) {
 
                 mainResponse.let { mainData ->
-                    mainData.popular?.let {
+                    mainData.featured?.let {
                         if (it.isNotEmpty()) {
                             _mainLiveData.value = State.success(mainResponse)
                         } else {
@@ -42,4 +43,6 @@ class MainViewModel : ViewModel(), KoinComponent {
             }
         }
     }
+
+
 }

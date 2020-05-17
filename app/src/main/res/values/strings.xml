@@ -2,4 +2,7 @@
     <string name="app_name">Mumbai Insider</string>
     <string name="app_submission_text">App submission by\nChintan Parmar</string>
     <string name="insider">insider</string>
+    <string name="price_string">₹ %1$s</string>
+    <string name="all">\u0020\u0020 All \u0020\u0020</string>
+
 </resources>

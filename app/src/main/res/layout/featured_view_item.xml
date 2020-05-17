@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="12dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/eventLogoIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="H,45:56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.32"
+        app:srcCompat="@drawable/default_banner" />
+
+    <TextView
+        android:id="@+id/eventTitleTV"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/eventVenueTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Comedy Show" />
+
+    <TextView
+        android:id="@+id/eventVenueTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:drawableStart="@drawable/ic_location_globe"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center_vertical"
+        android:textColor="#9c9c9c"
+        app:layout_constraintBottom_toTopOf="@+id/view1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toBottomOf="@+id/eventTitleTV"
+        tools:text="Online" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#363636"
+        app:layout_constraintBottom_toTopOf="@+id/eventTimeTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toBottomOf="@+id/eventVenueTV" />
+
+    <TextView
+        android:id="@+id/eventTimeTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="end"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/eventPriceTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        tools:text="Online" />
+
+    <TextView
+        android:id="@+id/eventPriceTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:includeFontPadding="false"
+        android:drawableStart="@drawable/ic_indian_rupee_symbol"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeTV"
+        tools:text="100" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

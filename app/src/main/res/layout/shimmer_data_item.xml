@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp">
+
+    <View
+        android:id="@+id/eventLogoIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        app:layout_constraintDimensionRatio="H,45:56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <View
+        android:id="@+id/eventTitleTV"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toTopOf="@+id/eventVenueTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/eventVenueTV"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toTopOf="@+id/view1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toBottomOf="@+id/eventTitleTV" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toTopOf="@+id/eventTimeTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toBottomOf="@+id/eventVenueTV" />
+
+    <View
+        android:id="@+id/eventTimeTV"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toTopOf="@+id/eventPriceTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+    <View
+        android:id="@+id/eventPriceTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/background"
+        android:fontFamily="@font/poppins_bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeTV" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
