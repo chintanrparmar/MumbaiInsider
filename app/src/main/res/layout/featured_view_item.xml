@@ -3,19 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="12dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="15dp">
 
-    <ImageView
-        android:id="@+id/eventLogoIV"
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
+        android:id="@+id/cardBg"
+        app:cardCornerRadius="10dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="H,45:56"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.32"
-        app:srcCompat="@drawable/default_banner" />
+        app:layout_constraintWidth_percent="0.32">
+
+        <ImageView
+            android:id="@+id/eventLogoIV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/default_banner" />
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/eventTitleTV"
@@ -23,12 +34,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:includeFontPadding="false"
         android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/eventVenueTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintStart_toEndOf="@id/cardBg"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Comedy Show" />
 
@@ -45,7 +56,7 @@
         android:textColor="#9c9c9c"
         app:layout_constraintBottom_toTopOf="@+id/view1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintStart_toEndOf="@id/cardBg"
         app:layout_constraintTop_toBottomOf="@+id/eventTitleTV"
         tools:text="Online" />
 
@@ -56,7 +67,7 @@
         android:background="#363636"
         app:layout_constraintBottom_toTopOf="@+id/eventTimeTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintStart_toEndOf="@id/cardBg"
         app:layout_constraintTop_toBottomOf="@+id/eventVenueTV" />
 
     <TextView
@@ -66,15 +77,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:drawablePadding="4dp"
+        android:ellipsize="end"
         android:fontFamily="@font/poppins_regular"
         android:gravity="end"
-        android:maxLines="1"
-        android:ellipsize="end"
         android:includeFontPadding="false"
+        android:maxLines="1"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/eventPriceTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/eventLogoIV"
+        app:layout_constraintStart_toEndOf="@id/cardBg"
         app:layout_constraintTop_toBottomOf="@+id/view1"
         tools:text="Online" />
 
@@ -84,12 +95,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:drawableStart="@drawable/ic_indian_rupee_symbol"
         android:drawablePadding="4dp"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
-        android:textColor="@color/white"
         android:includeFontPadding="false"
-        android:drawableStart="@drawable/ic_indian_rupee_symbol"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventTimeTV"

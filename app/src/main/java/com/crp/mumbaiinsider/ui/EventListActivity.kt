@@ -4,12 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.crp.mumbaiinsider.R
 import com.crp.mumbaiinsider.databinding.ActivityEventListBinding
 import com.crp.mumbaiinsider.model.Featured
 import com.crp.mumbaiinsider.network.State
+import com.crp.mumbaiinsider.utils.Helper
 import com.crp.mumbaiinsider.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.no_internet_layout.view.*
 import org.koin.android.ext.android.inject
 
 class EventListActivity : AppCompatActivity() {
@@ -29,8 +33,27 @@ class EventListActivity : AppCompatActivity() {
         }
 
         activityEventListBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
-        setListData()
+
+        onClickEvent()
+        loadData()
     }
+
+    private fun onClickEvent() {
+        activityEventListBinding.noInternetCl.noInternetView.retryBt.setOnClickListener {
+            loadData()
+        }
+    }
+
+    private fun loadData() {
+        if (Helper.isConnectingToInternet(this)) {
+            activityEventListBinding.noInternetCl.visibility = View.GONE
+            activityEventListBinding.shimmerFL.visibility = View.VISIBLE
+            setListData()
+        } else {
+            networkError()
+        }
+    }
+
 
     private fun setListData() {
         mainViewModel.getMainApiResponse()
@@ -41,11 +64,14 @@ class EventListActivity : AppCompatActivity() {
                 }
                 is State.Success -> {
                     stopLoading()
-
-
                     state.data.featured?.let { setData(it) }
                 }
                 is State.Error -> {
+                    Toast.makeText(
+                        applicationContext,
+                        getString(R.string.something),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -63,12 +89,20 @@ class EventListActivity : AppCompatActivity() {
     }
 
     private fun openDetailPage(featured: Featured) {
-        startActivity(Intent(this@EventListActivity, EventDetailActivity::class.java))
+        val intent = Intent(this@EventListActivity, EventDetailActivity::class.java)
+        intent.putExtra("_id", featured._id)
+        startActivity(intent)
     }
 
     private fun stopLoading() {
         activityEventListBinding.shimmerFL.stopShimmer()
         activityEventListBinding.shimmerFL.visibility = View.GONE
+    }
+
+    private fun networkError() {
+        activityEventListBinding.shimmerFL.stopShimmer()
+        activityEventListBinding.shimmerFL.visibility = View.GONE
+        activityEventListBinding.noInternetCl.visibility = View.VISIBLE
     }
 
 }
