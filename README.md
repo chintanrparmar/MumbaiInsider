@@ -3,7 +3,7 @@ A Paytm Insider sample application based on MVVM (ViewModel, Coroutines, Koin) a
 
 ***You can Install the Sample app by clicking below button***
 
-[![MumbaiInsider App](https://img.shields.io/badge/MumbaiInsider-APK-red)](https://github.com/chintanrparmar/MumbaiInsider/raw/master/sample-app.apk)
+[![MumbaiInsider App](https://img.shields.io/badge/MumbaiInsider-APK-red)](https://github.com/chintanrparmar/MumbaiInsider/raw/master/sample_app.apk)
 
 
 ## About
