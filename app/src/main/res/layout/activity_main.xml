@@ -54,13 +54,17 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/seeAll"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/all"
-                    android:textColor="?colorSecondary"
-                    app:chipBackgroundColor="?colorPrimaryDark" />
+                    android:textColor="?colorOnPrimary"
+                    app:chipBackgroundColor="?colorPrimary"
+                    app:chipStrokeColor="@color/chip_border_color"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="?colorPrimaryDark" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/comedyCp"
@@ -333,6 +337,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/talksLabelTv"
                 app:spanCount="1" />
+
+            <TextView
+                android:id="@+id/quoteTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="“We do not remember the days,\nbut rather the Moments ❤”"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/talksRV"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/chip_border_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quoteTv"
+                app:layout_constraintWidth_percent="0.1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

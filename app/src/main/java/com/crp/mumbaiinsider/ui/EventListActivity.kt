@@ -42,7 +42,7 @@ class EventListActivity : AppCompatActivity() {
         activityEventListBinding.noInternetCl.noInternetView.retryBt.setOnClickListener {
             loadData()
         }
-    }
+    } // onClick Listener
 
     private fun loadData() {
         if (Helper.isConnectingToInternet(this)) {
@@ -52,7 +52,7 @@ class EventListActivity : AppCompatActivity() {
         } else {
             networkError()
         }
-    }
+    } //checking connection and loading data. if no internet will display no internet layout.
 
 
     private fun setListData() {
@@ -76,7 +76,7 @@ class EventListActivity : AppCompatActivity() {
             }
 
         })
-    }
+    } //Fetching data and observing state through viewmodel
 
 
     private fun setData(list: List<Featured>) {
@@ -90,13 +90,13 @@ class EventListActivity : AppCompatActivity() {
                     it
                 )
             }
-    }
+    } //setting the list
 
     private fun openDetailPage(featured: Featured) {
         val intent = Intent(this@EventListActivity, EventDetailActivity::class.java)
         intent.putExtra("_id", featured._id)
         startActivity(intent)
-    }
+    } // open detail page with passing ID of current item.
 
     private fun stopLoading() {
         activityEventListBinding.shimmerFL.stopShimmer()

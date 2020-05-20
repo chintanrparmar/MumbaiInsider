@@ -32,7 +32,7 @@ class EventDetailActivity : AppCompatActivity() {
     private fun onClickEvent() {
         activityEventDetailBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
         activityEventDetailBinding.noInternetCl.retryBt.setOnClickListener { loadData() }
-    }
+    }// onClick Listener
 
     private fun loadData() {
         if (Helper.isConnectingToInternet(this)) {
@@ -42,7 +42,7 @@ class EventDetailActivity : AppCompatActivity() {
         } else {
             networkError()
         }
-    }
+    } //checking connection and loading data. if no internet will display no internet layout.
 
 
     private fun getData() {
@@ -60,10 +60,9 @@ class EventDetailActivity : AppCompatActivity() {
                 }
             }
         })
-    }
+    } //Fetching data and observing state through viewmodel
 
     private fun setData(featuredList: List<Featured>?) {
-
 
         val featured = featuredList?.get(0)
 
@@ -76,9 +75,7 @@ class EventDetailActivity : AppCompatActivity() {
             activityEventDetailBinding.eventVenueTV.text = it.venue_name
             activityEventDetailBinding.eventCatTV.text = it.category_id?.name
         }
-
-
-    }
+    } // Set Single item data
 
     private fun stopLoading() {
         activityEventDetailBinding.shimmerFL.stopShimmer()

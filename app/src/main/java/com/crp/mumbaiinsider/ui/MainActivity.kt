@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             networkError()
         }
-    }
+    } //checking connection and loading data. if no internet will display no internet layout.
 
     private fun onClickEvent() {
 
@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity() {
             loadData()
         }
         mainBinding.viewAllFeatured.setOnClickListener {
+            goToList("")
+        }
+        mainBinding.seeAll.setOnClickListener {
             goToList("")
         }
         mainBinding.comedyCp.setOnClickListener {
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainBinding.changeThemeIv.setOnClickListener { switchTheme() }
-    }
+    } //All OnClickListener
 
     private fun getData() {
         mainViewModel.getMainApiResponse()
@@ -101,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-    }
+    } //Fetching data and observing state through viewmodel
 
     private fun stopLoading() {
         mainBinding.shimmerFL.stopShimmer()
@@ -123,7 +126,6 @@ class MainActivity : AppCompatActivity() {
             distinctList = distinctList.take(5)
         }
 
-
         mainBinding.viewPager2.apply {
             this.adapter =
                 BannerAdapter(distinctList) {
@@ -131,21 +133,21 @@ class MainActivity : AppCompatActivity() {
                 }
             mainBinding.indicatorVP.setViewPager(this)
         }
-    }
+    } //Get Distinct Limited Items to Set in List
 
     private fun setFeaturedEvents(list: List<Featured>) {
         mainBinding.featuredRV.adapter =
             FeaturedEventAdapter(list.take(6)) {
                 openDetailPage(it)
             }
-    }
+    } //Display limited featured items in List as we have see all option
 
     private fun setCategoriesEvents(list: List<Featured>) {
         mainBinding.comedyRV.adapter = getFilterListAdapter(list, "Comedy")
         mainBinding.healthRV.adapter = getFilterListAdapter(list, "Health and Fitness")
         mainBinding.workshopRV.adapter = getFilterListAdapter(list, "Workshops")
         mainBinding.talksRV.adapter = getFilterListAdapter(list, "Talks")
-    }
+    } //set different category list
 
 
     private fun getFilterListAdapter(
@@ -155,19 +157,19 @@ class MainActivity : AppCompatActivity() {
         return FeaturedEventAdapter(list.filter { it.category_id?.name == filterStr }) {
             openDetailPage(it)
         }
-    }
+    } //generic function to return each category adapter
 
     private fun openDetailPage(featured: Featured) {
         val intent = Intent(this@MainActivity, EventDetailActivity::class.java)
         intent.putExtra("_id", featured._id)
         startActivity(intent)
-    }
+    } // open detail page with passing ID of current item.
 
     private fun goToList(string: String) {
         val intent = Intent(this@MainActivity, EventListActivity::class.java)
         intent.putExtra("filter", string)
         startActivity(intent)
-    }
+    } // to see all event when tapped on see all button
 
     private fun switchTheme() {
         val currentTheme = sharedPreferences.getInt(getString(R.string.theme_mode), 0)
@@ -191,5 +193,5 @@ class MainActivity : AppCompatActivity() {
         }
         recreate()
 
-    }
+    }// switch theme function to be triggered by user.
 }

@@ -26,15 +26,17 @@ class SplashActivity : AppCompatActivity() {
 
         val currentTheme = sharedPreferences.getInt(getString(R.string.theme_mode), 0)
 
+        //checking if theme value already set.
+        //If not will update current theme by checking current device theme.
         if (currentTheme == 0) {
             changeTheme()
         } else {
             AppCompatDelegate.setDefaultNightMode(currentTheme)
-
         }
 
         Handler().postDelayed({
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }, 1000)
     }
 
@@ -43,7 +45,6 @@ class SplashActivity : AppCompatActivity() {
             Configuration.UI_MODE_NIGHT_NO -> {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
                 sharedPreferences.edit { putInt(getString(R.string.theme_mode), MODE_NIGHT_NO) }
-
 
             } // Night mode is not active, we're using the light theme
             Configuration.UI_MODE_NIGHT_YES -> {
@@ -55,7 +56,7 @@ class SplashActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
                 sharedPreferences.edit { putInt(getString(R.string.theme_mode), MODE_NIGHT_NO) }
 
-            }
+            } //Default Night Mode
         }
     }
 }
