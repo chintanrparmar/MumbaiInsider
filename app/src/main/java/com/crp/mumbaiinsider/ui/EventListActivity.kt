@@ -2,7 +2,6 @@ package com.crp.mumbaiinsider.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,7 @@ import com.crp.mumbaiinsider.R
 import com.crp.mumbaiinsider.databinding.ActivityEventListBinding
 import com.crp.mumbaiinsider.model.Featured
 import com.crp.mumbaiinsider.network.State
+import com.crp.mumbaiinsider.ui.adapter.FeaturedEventAdapter
 import com.crp.mumbaiinsider.utils.Helper
 import com.crp.mumbaiinsider.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.no_internet_layout.view.*
@@ -82,10 +82,14 @@ class EventListActivity : AppCompatActivity() {
     private fun setData(list: List<Featured>) {
         var distinctList = list
         if (filterString != "") {
-            distinctList = list.distinctBy { it.category_id?.name == filterString }
+            distinctList = list.filter { it.category_id?.name == filterString }
         }
         activityEventListBinding.eventListRV.adapter =
-            FeaturedEventAdapter(distinctList) { openDetailPage(it) }
+            FeaturedEventAdapter(distinctList) {
+                openDetailPage(
+                    it
+                )
+            }
     }
 
     private fun openDetailPage(featured: Featured) {

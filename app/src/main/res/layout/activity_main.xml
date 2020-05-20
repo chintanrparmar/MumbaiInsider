@@ -10,8 +10,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:elevation="10dp"
         android:elevation="10dp"
+        app:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,6 +29,7 @@
             </androidx.appcompat.widget.Toolbar>
 
             <ImageView
+                android:id="@+id/changeThemeIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -58,8 +59,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/all"
-                    android:textColor="@color/black"
-                    app:chipBackgroundColor="@color/yellow_600" />
+                    android:textColor="?colorSecondary"
+                    app:chipBackgroundColor="?colorPrimaryDark" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/comedyCp"
@@ -68,11 +69,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/comedy"
-                    android:textColor="@color/white"
-                    app:chipBackgroundColor="@color/black_500"
-                    app:chipStrokeColor="#c4c4c4"
+                    android:textColor="?colorOnPrimary"
+                    app:chipBackgroundColor="?colorPrimary"
+                    app:chipStrokeColor="@color/chip_border_color"
                     app:chipStrokeWidth="1dp"
-                    app:rippleColor="@color/yellow_600" />
+                    app:rippleColor="?colorPrimaryDark" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/healthCp"
@@ -80,11 +81,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/health"
-                    android:textColor="@color/white"
-                    app:chipBackgroundColor="@color/black_500"
-                    app:chipStrokeColor="#c4c4c4"
+                    android:textColor="?colorOnPrimary"
+                    app:chipBackgroundColor="?colorPrimary"
+                    app:chipStrokeColor="@color/chip_border_color"
                     app:chipStrokeWidth="1dp"
-                    app:rippleColor="@color/yellow_600" />
+                    app:rippleColor="?colorPrimaryDark" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/workshopCp"
@@ -92,11 +93,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/workshops"
-                    android:textColor="@color/white"
-                    app:chipBackgroundColor="@color/black_500"
-                    app:chipStrokeColor="#c4c4c4"
+                    android:textColor="?colorOnPrimary"
+                    app:chipBackgroundColor="?colorPrimary"
+                    app:chipStrokeColor="@color/chip_border_color"
                     app:chipStrokeWidth="1dp"
-                    app:rippleColor="@color/yellow_600" />
+                    app:rippleColor="?colorPrimaryDark" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/talksCp"
@@ -104,11 +105,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/talks"
-                    android:textColor="@color/white"
-                    app:chipBackgroundColor="@color/black_500"
-                    app:chipStrokeColor="#c4c4c4"
+                    android:textColor="?colorOnPrimary"
+                    app:chipBackgroundColor="?colorPrimary"
+                    app:chipStrokeColor="@color/chip_border_color"
                     app:chipStrokeWidth="1dp"
-                    app:rippleColor="@color/yellow_600" />
+                    app:rippleColor="?colorPrimaryDark" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
     </com.google.android.material.appbar.AppBarLayout>
@@ -184,7 +185,7 @@
                 android:layout_width="0dp"
                 android:layout_height="12dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/black"
+                android:background="?colorOnSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/indicatorVP" />
@@ -197,7 +198,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:padding="12dp"
                 android:text="@string/featured_events"
-                android:textColor="@color/white"
+                android:textColor="?colorOnPrimary"
                 app:layout_constraintEnd_toStartOf="@id/viewAllFeatured"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view" />
@@ -211,7 +212,7 @@
                 android:gravity="end"
                 android:padding="12dp"
                 android:text="@string/see_all"
-                android:textColor="@color/yellow_600"
+                android:textColor="?colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/featuredLabelTv"
                 app:layout_constraintTop_toBottomOf="@id/view" />
@@ -230,32 +231,108 @@
                 app:spanCount="2" />
 
             <TextView
-                android:id="@+id/popularLabelTv"
+                android:id="@+id/comedyLabelTv"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:padding="15dp"
-                android:text="@string/popular_events"
-                android:textColor="@color/white"
-                android:visibility="gone"
+                android:padding="12dp"
+                android:text="@string/comedy"
+                android:textColor="?colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/featuredRV" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popularRV"
+                android:id="@+id/comedyRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingEnd="18dp"
-                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/popularLabelTv"
-                app:spanCount="2" />
+                app:layout_constraintTop_toBottomOf="@id/comedyLabelTv"
+                app:spanCount="1" />
+
+            <TextView
+                android:id="@+id/healthLabelTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:padding="12dp"
+                android:text="@string/health_fitness"
+                android:textColor="?colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comedyRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/healthRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingEnd="18dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/healthLabelTv"
+                app:spanCount="1" />
+
+            <TextView
+                android:id="@+id/workshopLabelTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:padding="12dp"
+                android:text="@string/workshops"
+                android:textColor="?colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/healthRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/workshopRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingEnd="18dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/workshopLabelTv"
+                app:spanCount="1" />
+
+            <TextView
+                android:id="@+id/talksLabelTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:padding="12dp"
+                android:text="@string/talks"
+                android:textColor="?colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/workshopRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/talksRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingEnd="18dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/talksLabelTv"
+                app:spanCount="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -1,13 +1,16 @@
 package com.crp.mumbaiinsider.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import coil.api.load
 import com.crp.mumbaiinsider.databinding.ActivityEventDetailBinding
 import com.crp.mumbaiinsider.model.Featured
 import com.crp.mumbaiinsider.network.State
+import com.crp.mumbaiinsider.utils.Helper
 import com.crp.mumbaiinsider.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.no_internet_layout.view.*
 import org.koin.android.ext.android.inject
 
 class EventDetailActivity : AppCompatActivity() {
@@ -28,20 +31,29 @@ class EventDetailActivity : AppCompatActivity() {
 
     private fun onClickEvent() {
         activityEventDetailBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
+        activityEventDetailBinding.noInternetCl.retryBt.setOnClickListener { loadData() }
     }
 
     private fun loadData() {
-        getData()
+        if (Helper.isConnectingToInternet(this)) {
+            activityEventDetailBinding.noInternetCl.visibility = View.GONE
+            activityEventDetailBinding.shimmerFL.visibility = View.VISIBLE
+            getData()
+        } else {
+            networkError()
+        }
     }
+
 
     private fun getData() {
         mainViewModel.getMainApiResponse()
         mainViewModel.mainLiveData.observe(this@EventDetailActivity, Observer { state ->
             when (state) {
                 is State.Loading -> {
-
+                    activityEventDetailBinding.shimmerFL.startShimmer()
                 }
                 is State.Success -> {
+                    stopLoading()
                     setData(state.data.featured?.filter { it._id == idString })
                 }
                 is State.Error -> {
@@ -66,6 +78,19 @@ class EventDetailActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun stopLoading() {
+        activityEventDetailBinding.shimmerFL.stopShimmer()
+        activityEventDetailBinding.shimmerFL.visibility = View.GONE
+        activityEventDetailBinding.dataLayout.visibility = View.VISIBLE
+    }
+
+    private fun networkError() {
+        activityEventDetailBinding.shimmerFL.stopShimmer()
+        activityEventDetailBinding.shimmerFL.visibility = View.GONE
+        activityEventDetailBinding.dataLayout.visibility = View.GONE
+        activityEventDetailBinding.noInternetCl.visibility = View.VISIBLE
     }
 
 

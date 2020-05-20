@@ -1,20 +1,24 @@
 package com.crp.mumbaiinsider.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import com.crp.mumbaiinsider.R
 import com.crp.mumbaiinsider.databinding.ActivityMainBinding
-import com.crp.mumbaiinsider.databinding.NoInternetLayoutBinding
 import com.crp.mumbaiinsider.model.Banner
 import com.crp.mumbaiinsider.model.Featured
 import com.crp.mumbaiinsider.network.State
+import com.crp.mumbaiinsider.ui.adapter.BannerAdapter
+import com.crp.mumbaiinsider.ui.adapter.FeaturedEventAdapter
 import com.crp.mumbaiinsider.utils.Helper
 import com.crp.mumbaiinsider.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.no_internet_layout.view.*
@@ -24,12 +28,14 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by inject()
     private lateinit var mainBinding: ActivityMainBinding
-    private lateinit var noInternetLayoutBinding: NoInternetLayoutBinding
-
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+
+        sharedPreferences =
+            getSharedPreferences(getString(R.string.theme_mode), Context.MODE_PRIVATE)
 
         onClickEvent()
         loadData()
@@ -65,6 +71,8 @@ class MainActivity : AppCompatActivity() {
         mainBinding.healthCp.setOnClickListener {
             goToList("Health and Fitness")
         }
+
+        mainBinding.changeThemeIv.setOnClickListener { switchTheme() }
     }
 
     private fun getData() {
@@ -77,7 +85,10 @@ class MainActivity : AppCompatActivity() {
                 is State.Success -> {
                     stopLoading()
                     state.data.banners?.let { setBanner(it) }
-                    state.data.featured?.let { setFeaturedEvents(it) }
+                    state.data.featured?.let {
+                        setFeaturedEvents(it)
+                        setCategoriesEvents(it)
+                    }
 
                 }
                 is State.Error -> {
@@ -114,15 +125,36 @@ class MainActivity : AppCompatActivity() {
 
 
         mainBinding.viewPager2.apply {
-            this.adapter = BannerAdapter(distinctList) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
-            }
+            this.adapter =
+                BannerAdapter(distinctList) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+                }
             mainBinding.indicatorVP.setViewPager(this)
         }
     }
 
     private fun setFeaturedEvents(list: List<Featured>) {
-        mainBinding.featuredRV.adapter = FeaturedEventAdapter(list.take(6)) { openDetailPage(it) }
+        mainBinding.featuredRV.adapter =
+            FeaturedEventAdapter(list.take(6)) {
+                openDetailPage(it)
+            }
+    }
+
+    private fun setCategoriesEvents(list: List<Featured>) {
+        mainBinding.comedyRV.adapter = getFilterListAdapter(list, "Comedy")
+        mainBinding.healthRV.adapter = getFilterListAdapter(list, "Health and Fitness")
+        mainBinding.workshopRV.adapter = getFilterListAdapter(list, "Workshops")
+        mainBinding.talksRV.adapter = getFilterListAdapter(list, "Talks")
+    }
+
+
+    private fun getFilterListAdapter(
+        list: List<Featured>,
+        filterStr: String
+    ): FeaturedEventAdapter {
+        return FeaturedEventAdapter(list.filter { it.category_id?.name == filterStr }) {
+            openDetailPage(it)
+        }
     }
 
     private fun openDetailPage(featured: Featured) {
@@ -135,5 +167,29 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, EventListActivity::class.java)
         intent.putExtra("filter", string)
         startActivity(intent)
+    }
+
+    private fun switchTheme() {
+        val currentTheme = sharedPreferences.getInt(getString(R.string.theme_mode), 0)
+
+        if (currentTheme == AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            sharedPreferences.edit {
+                putInt(
+                    getString(R.string.theme_mode),
+                    AppCompatDelegate.MODE_NIGHT_YES
+                )
+            }
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            sharedPreferences.edit {
+                putInt(
+                    getString(R.string.theme_mode),
+                    AppCompatDelegate.MODE_NIGHT_NO
+                )
+            }
+        }
+        recreate()
+
     }
 }

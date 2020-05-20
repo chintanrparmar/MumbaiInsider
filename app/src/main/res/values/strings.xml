@@ -13,5 +13,6 @@
     <string name="talks">Talks</string>
     <string name="something">Something went wrong</string>
     <string name="theme_mode">ThemeMode</string>
+    <string name="health_fitness"><![CDATA[Health & Fitness]]></string>
 
 </resources>
